@@ -15,15 +15,14 @@ namespace EfCoreExample.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.1")
+                .HasAnnotation("ProductVersion", "2.2.6-servicing-10079")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("EfCoreExample.Models.Registration", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .ValueGeneratedOnAdd();
 
                     b.HasKey("Id");
 
@@ -34,18 +33,18 @@ namespace EfCoreExample.Migrations
                 {
                     b.OwnsOne("EfCoreExample.Models.Contact", "Contact", b1 =>
                         {
-                            b1.Property<Guid>("RegistrationId")
-                                .HasColumnType("uniqueidentifier");
+                            b1.Property<Guid>("RegistrationId");
 
-                            b1.Property<string>("LastName")
-                                .HasColumnType("nvarchar(max)");
+                            b1.Property<string>("LastName");
 
                             b1.HasKey("RegistrationId");
 
                             b1.ToTable("Registrations");
 
-                            b1.WithOwner()
-                                .HasForeignKey("RegistrationId");
+                            b1.HasOne("EfCoreExample.Models.Registration")
+                                .WithOne("Contact")
+                                .HasForeignKey("EfCoreExample.Models.Contact", "RegistrationId")
+                                .OnDelete(DeleteBehavior.Cascade);
                         });
                 });
 #pragma warning restore 612, 618
