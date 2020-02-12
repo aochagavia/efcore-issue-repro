@@ -19,8 +19,7 @@ namespace EfCoreExample
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            const string c = "Server=(localdb)\\mssqllocaldb;Database=EfCoreExample;Trusted_Connection=True;MultipleActiveResultSets=true";
-            services.AddDbContext<Db>(opt => opt.UseSqlServer(c));
+            services.AddDbContext<Db>();
             services.AddControllers();
         }
 
