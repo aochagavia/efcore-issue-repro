@@ -7,7 +7,11 @@ namespace EfCoreExample
     {
         public DbSet<Registration> Registrations { get; set; }
 
-        public Db(DbContextOptions<Db> options) : base(options) {}
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            const string c = "Server=(localdb)\\mssqllocaldb;Database=EfCoreExample;Trusted_Connection=True;MultipleActiveResultSets=true";
+            optionsBuilder.UseSqlServer(c);
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
