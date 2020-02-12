@@ -15,10 +15,7 @@ namespace EfCoreExample.Tests
 
         public RegistrationTests(WebApplicationFactory<Startup> factory)
         {
-            _factory = factory.WithWebHostBuilder(config =>
-                {
-                    config.ConfigureServices(provider => provider.AddEntityFrameworkInMemoryDatabase());
-                });
+            _factory = factory;
         }
 
         // This test fails in EF Core 3.3.1, but passes in EF Core 2.2.6
